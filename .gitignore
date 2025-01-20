@@ -1,0 +1,18 @@
+# .gitignore for a typical .NET project
+
+# Ignore the bin and obj folders
+bin/
+obj/
+
+# User-specific files
+.user
+.vs
+.vscode
+.idea
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore build directories
+/wwwroot/
