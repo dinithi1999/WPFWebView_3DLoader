@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Babylon.js\**" />
+    <EmbeddedResource Remove="Babylon.js\**" />
+    <None Remove="Babylon.js\**" />
+    <Page Remove="Babylon.js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="wwwroot\Assets\js\babylon.js" />
+    <None Remove="wwwroot\Assets\js\babylonjs.loaders.js" />
+    <None Remove="wwwroot\Assets\js\babylonjs.loaders.min.js" />
+    <None Remove="wwwroot\Assets\js\STLLoader.js" />
+    <None Remove="wwwroot\STL\base.stl" />
+    <None Remove="wwwroot\index.html" />
+    <None Remove="wwwroot\STL\LP1_TapeframeM.STL" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\Assets\js\babylon.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Assets\js\babylonjs.loaders.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Assets\js\babylonjs.loaders.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Assets\js\STLLoader.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\STL\base.stl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\STL\LP1_TapeframeM.STL">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  </ItemGroup>
+
+</Project>
