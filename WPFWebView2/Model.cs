@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,8 @@ namespace WPFWebView2
 
     public class ModelLoader
     {
-        private string _configFilePath = @"Assets/modelsConfig.xml"; // Path to XML config file
+        private string _configFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"wwwroot/Assets/modelsConfig.xml"); // Path to XML config file
+        private string _indexHtmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"wwwroot\index.html"); // Path to index.html file
 
         public List<Model> LoadModels()
         {
@@ -45,6 +47,24 @@ namespace WPFWebView2
                 }).ToList();
 
             return models;
+        }
+
+        public void UpdateIndexHtml()
+        {
+            var models = LoadModels();
+            var modelsData = string.Join(",\n", models.Select(m => $@"
+                {{
+                    Id: '{m.Id}',
+                    FilePath: '{m.FilePath}',
+                    Translation: '{m.Translation}',
+                    Rotation: '{m.Rotation}',
+                    OffsetTranslation: '{m.OffsetTranslation}',
+                    OffsetRotation: '{m.OffsetRotation}'
+                }}"));
+
+            var indexHtmlContent = File.ReadAllText(_indexHtmlFilePath);
+            indexHtmlContent = indexHtmlContent.Replace("{{modelsData}}", modelsData);
+            File.WriteAllText(_indexHtmlFilePath, indexHtmlContent);
         }
     }
 }

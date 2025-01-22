@@ -3,10 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFWebView2" xmlns:wv="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:local="clr-namespace:WPFWebView2"
+        xmlns:wv="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1000">
     <Grid>
-        <wv:WebView2 Name="webView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <wv:WebView2 Name="webView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0"/>
+
+        <StackPanel Grid.Column="1" Margin="10">
+            <TextBlock Text="3D Object Controls" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+
+            <ComboBox Name="objectSelector" SelectionChanged="ObjectSelector_SelectionChanged" Margin="0,0,0,10">
+                <!-- Items will be populated dynamically -->
+            </ComboBox>
+
+            <TextBlock Text="Translation" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="X:"/>
+            <TextBox Name="translationXTextBox" TextChanged="TranslationTextBox_TextChanged"/>
+            <TextBlock Text="Y:"/>
+            <TextBox Name="translationYTextBox" TextChanged="TranslationTextBox_TextChanged"/>
+            <TextBlock Text="Z:"/>
+            <TextBox Name="translationZTextBox" TextChanged="TranslationTextBox_TextChanged"/>
+
+            <TextBlock Text="Rotation" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="X:"/>
+            <TextBox Name="rotationXTextBox" TextChanged="RotationTextBox_TextChanged"/>
+            <TextBlock Text="Y:"/>
+            <TextBox Name="rotationYTextBox" TextChanged="RotationTextBox_TextChanged"/>
+            <TextBlock Text="Z:"/>
+            <TextBox Name="rotationZTextBox" TextChanged="RotationTextBox_TextChanged"/>
+
+            <TextBlock Text="Color" FontWeight="Bold" Margin="0,10,0,5"/>
+            <xctk:ColorPicker Name="colorPicker" SelectedColorChanged="ColorPicker_SelectedColorChanged" Margin="0,5,0,0"/>
+
+            <Button Name="applyChangesButton" Content="Apply Changes" Click="ApplyChangesButton_Click" Margin="0,20,0,0"/>
+        </StackPanel>
     </Grid>
 </Window>

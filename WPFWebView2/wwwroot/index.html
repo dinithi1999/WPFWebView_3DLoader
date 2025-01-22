@@ -39,39 +39,75 @@
         // Create a hemispheric light
         var light = new BABYLON.HemisphericLight("light1", BABYLON.Vector3.Up(), scene);
 
-        // Load the first STL file
-        BABYLON.SceneLoader.Append("./", "base.STL", scene, function () {
-            console.log("First STL model w7m successfully!");
-            // Create default camera or light if not already created
-            scene.createDefaultCameraOrLight(true, true, true);
-        });
+        // Global object to keep track of loaded models
+        var loadedModels = {};
 
-        // Load the second STL file
-        BABYLON.SceneLoader.Append("./", "j2m.stl", scene, function () {
-            console.log("Second STL model loaded successfully!");
+        // Function to load models from the XML configuration
+        function loadModels() {
+            var models = [
+                // Models data will be inserted here by the C# code
+                {{modelsData}}
+            ];
 
-            // Move the second model to a different position
-            var secondMesh = scene.meshes[scene.meshes.length - 1]; // Get the last loaded mesh
-            secondMesh.position = new BABYLON.Vector3(3, 0, 0); // Move the second model
-        });
+            models.forEach(function(model) {
+                BABYLON.SceneLoader.Append("./", model.FilePath, scene, function () {
+                    console.log(model.Id + " model loaded successfully!");
 
-        // Load the third STL file
-        BABYLON.SceneLoader.Append("./", "j3m.stl", scene, function () {
-            console.log("Third STL model loaded successfully!");
+                    // Move the model to the specified position
+                    var mesh = scene.meshes[scene.meshes.length - 1]; // Get the last loaded mesh
+                    var translation = model.Translation.split(',').map(Number);
+                    var offsetTranslation = model.OffsetTranslation.split(',').map(Number);
+                    mesh.position = new BABYLON.Vector3(
+                        translation[0] + offsetTranslation[0],
+                        translation[1] + offsetTranslation[1],
+                        translation[2] + offsetTranslation[2]
+                    );
 
-            // Move the third model to a different position
-            var thirdMesh = scene.meshes[scene.meshes.length - 1]; // Get the last loaded mesh
-            thirdMesh.position = new BABYLON.Vector3(6, 0, 0); // Move the third model
-        });
+                    // Apply rotation if needed
+                    var rotation = model.Rotation.split(',').map(Number);
+                    var offsetRotation = model.OffsetRotation.split(',').map(Number);
+                    mesh.rotation = new BABYLON.Vector3(
+                        (rotation[0] + offsetRotation[0]) * Math.PI / 180,
+                        (rotation[1] + offsetRotation[1]) * Math.PI / 180,
+                        (rotation[2] + offsetRotation[2]) * Math.PI / 180
+                    );
 
-        // Load the fourth STL file
-        BABYLON.SceneLoader.Append("./", "j4m.stl", scene, function () {
-            console.log("Fourth STL model loaded successfully!");
+                    // Apply color if specified
+                    if (model.Color) {
+                        var material = new BABYLON.StandardMaterial("material", scene);
+                        material.diffuseColor = BABYLON.Color3.FromHexString(model.Color);
+                        material.emissiveColor = BABYLON.Color3.FromHexString(model.Color);
+                        material.specularColor = BABYLON.Color3.Black();
+                        mesh.material = material;
+                        console.log("Color applied to model:", model.Color);
+                    }
 
-            // Move the fourth model to a different position
-            var fourthMesh = scene.meshes[scene.meshes.length - 1]; // Get the last loaded mesh
-            fourthMesh.position = new BABYLON.Vector3(9, 0, 0); // Move the fourth model
-        });
+                    // Add the loaded model to the global object
+                    loadedModels[model.Id] = mesh;
+                });
+            });
+        }
+
+        // Function to apply changes to a model
+        function applyChangesToModel(modelId, translation, rotation, color) {
+            var model = loadedModels[modelId];
+            if (model) {
+                model.position = new BABYLON.Vector3(translation[0], translation[1], translation[2]);
+                model.rotation = new BABYLON.Vector3(rotation[0] * Math.PI / 180, rotation[1] * Math.PI / 180, rotation[2] * Math.PI / 180);
+                if (!model.material) {
+                    model.material = new BABYLON.StandardMaterial('material', scene);
+                }
+                model.material.diffuseColor = BABYLON.Color3.FromHexString(color);
+                model.material.emissiveColor = BABYLON.Color3.FromHexString(color);
+                model.material.specularColor = BABYLON.Color3.Black();
+                console.log('Changes applied to model:', modelId);
+            } else {
+                console.log('Model not found:', modelId);
+            }
+        }
+
+        // Load models
+        loadModels();
 
         // Render loop
         engine.runRenderLoop(function () {
@@ -85,3 +121,4 @@
     </script>
 </body>
 </html>
+
