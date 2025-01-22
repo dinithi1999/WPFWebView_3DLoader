@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babylon.js STL Loader Example</title>
+    <title>STL Loader Example</title>
 
-    <script src="http://localhost:8080/Assets/js/babylon.js"></script>
-    <script src="http://localhost:8080/Assets/js/babylonjs.loaders.min.js"></script>
-    <script src="http://localhost:8080/Assets/js/babylonjs.loaders.js"></script>
-    <script src="http://localhost:8080/Assets/js/STLLoader.js"></script>
-
+    <script src="Assets/js/babylon.js"></script>
+    <script src="Assets/js/babylonjs.loaders.min.js"></script>
+    <script src="Assets/js/babylonjs.loaders.js"></script>
 
     <style>
         body {
@@ -25,7 +23,7 @@
     </style>
 </head>
 <body>
-    <h1>Babylon.js STL Model</h1>
+    <h1>STL Model</h1>
     <canvas id="renderCanvas"></canvas> <!-- Canvas element to render the Babylon.js scene -->
 
     <script>
@@ -41,11 +39,39 @@
         // Create a hemispheric light
         var light = new BABYLON.HemisphericLight("light1", BABYLON.Vector3.Up(), scene);
 
-        BABYLON.SceneLoader.Append("/STL/", "base.stl", scene, function () {
-            console.log("STL model loaded successfully!");
+        // Load the first STL file
+        BABYLON.SceneLoader.Append("./", "base.STL", scene, function () {
+            console.log("First STL model w7m successfully!");
+            // Create default camera or light if not already created
             scene.createDefaultCameraOrLight(true, true, true);
         });
 
+        // Load the second STL file
+        BABYLON.SceneLoader.Append("./", "j2m.stl", scene, function () {
+            console.log("Second STL model loaded successfully!");
+
+            // Move the second model to a different position
+            var secondMesh = scene.meshes[scene.meshes.length - 1]; // Get the last loaded mesh
+            secondMesh.position = new BABYLON.Vector3(3, 0, 0); // Move the second model
+        });
+
+        // Load the third STL file
+        BABYLON.SceneLoader.Append("./", "j3m.stl", scene, function () {
+            console.log("Third STL model loaded successfully!");
+
+            // Move the third model to a different position
+            var thirdMesh = scene.meshes[scene.meshes.length - 1]; // Get the last loaded mesh
+            thirdMesh.position = new BABYLON.Vector3(6, 0, 0); // Move the third model
+        });
+
+        // Load the fourth STL file
+        BABYLON.SceneLoader.Append("./", "j4m.stl", scene, function () {
+            console.log("Fourth STL model loaded successfully!");
+
+            // Move the fourth model to a different position
+            var fourthMesh = scene.meshes[scene.meshes.length - 1]; // Get the last loaded mesh
+            fourthMesh.position = new BABYLON.Vector3(9, 0, 0); // Move the fourth model
+        });
 
         // Render loop
         engine.runRenderLoop(function () {

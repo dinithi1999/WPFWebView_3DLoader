@@ -20,37 +20,104 @@
     <None Remove="wwwroot\Assets\js\babylonjs.loaders.js" />
     <None Remove="wwwroot\Assets\js\babylonjs.loaders.min.js" />
     <None Remove="wwwroot\Assets\js\STLLoader.js" />
+    <None Remove="wwwroot\Assets\modelsConfig.xml" />
+    <None Remove="wwwroot\base.stl" />
+    <None Remove="wwwroot\j2m.stl" />
+    <None Remove="wwwroot\j3m.stl" />
+    <None Remove="wwwroot\j4m.stl" />
+    <None Remove="wwwroot\j5m.stl" />
+    <None Remove="wwwroot\j6m.stl" />
+    <None Remove="wwwroot\j7m.stl" />
+    <None Remove="wwwroot\LP1_TapeframeM.STL" />
+    <None Remove="wwwroot\LP1_TapeframeN.STL" />
     <None Remove="wwwroot\STL\base.stl" />
     <None Remove="wwwroot\index.html" />
+    <None Remove="wwwroot\STL\j2m.stl" />
     <None Remove="wwwroot\STL\LP1_TapeframeM.STL" />
+    <None Remove="wwwroot\STL\LP1_TapeframeN.STL" />
+    <None Remove="wwwroot\STL\w6m.STL" />
+    <None Remove="wwwroot\STL\w7m.STL" />
+    <None Remove="wwwroot\w6m.STL" />
+    <None Remove="wwwroot\w7m.STL" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="wwwroot\Assets\js\babylon.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wwwroot\Assets\js\babylonjs.loaders.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wwwroot\Assets\js\babylonjs.loaders.min.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wwwroot\Assets\js\STLLoader.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\Assets\modelsConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="wwwroot\STL\base.stl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="wwwroot\j4m.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\j5m.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\j6m.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\j7m.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\LP1_TapeframeM.STL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\LP1_TapeframeN.STL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\STL\w7m.STL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\j2m.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\j3m.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\STL\base.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="wwwroot\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wwwroot\STL\LP1_TapeframeM.STL">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\STL\LP1_TapeframeN.STL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\base.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\STL\j2m.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\STL\w6m.STL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\w6m.STL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\w7m.STL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
