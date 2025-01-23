@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Xml.Linq;
 
 namespace WPFWebView2
@@ -18,7 +13,6 @@ namespace WPFWebView2
         public string Rotation { get; set; }
         public string OffsetTranslation { get; set; }
         public string OffsetRotation { get; set; }
-        // Add other properties as needed
     }
 
     public class ModelLoader
@@ -26,6 +20,10 @@ namespace WPFWebView2
         private string _configFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"wwwroot/Assets/modelsConfig.xml"); // Path to XML config file
         private string _indexHtmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"wwwroot\index.html"); // Path to index.html file
 
+        /// <summary>
+        ///  Load the models data from the XML config file
+        /// </summary>
+        /// <returns></returns>
         public List<Model> LoadModels()
         {
             // Load the XML document
@@ -49,6 +47,9 @@ namespace WPFWebView2
             return models;
         }
 
+        /// <summary>
+        /// Update the index.html file with the models data from the XML config file
+        /// </summary>
         public void UpdateIndexHtml()
         {
             var models = LoadModels();

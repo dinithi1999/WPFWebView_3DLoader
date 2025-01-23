@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Path = System.IO.Path;
+using System.IO;
 
 namespace WPFWebView2
 {
     public partial class MainWindow : Window
     {
+        // List of models loaded from XML config file
         private List<Model> models;
         private Model selectedModel;
 
@@ -20,6 +21,10 @@ namespace WPFWebView2
             InitializeAsync();
         }
 
+        /// <summary>
+        /// Asynchronously initialize WebView2 and load local HTML file.
+        /// Load models from XML config file and update index.html.
+        /// </summary>
         private async void InitializeAsync()
         {
             // Load models and update index.html
@@ -43,30 +48,20 @@ namespace WPFWebView2
             webView.Source = new Uri(filePath);
         }
 
+        /// <summary>
+        /// Event handler for when the selected item in the object selector combobox changes.
+        /// Updates the selected model based on the selected item.
+        /// </summary>
         private void ObjectSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedId = objectSelector.SelectedItem as string;
             selectedModel = models.Find(m => m.Id == selectedId);
-
-            if (selectedModel != null)
-            {
-                // Parse translation and rotation values
-                var translation = ParseVector3(selectedModel.Translation);
-                var rotation = ParseVector3(selectedModel.Rotation);
-
-                // Update UI with model data
-                translationXTextBox.Text = translation[0].ToString("F2");
-                translationYTextBox.Text = translation[1].ToString("F2");
-                translationZTextBox.Text = translation[2].ToString("F2");
-
-                rotationXTextBox.Text = rotation[0].ToString("F2");
-                rotationYTextBox.Text = rotation[1].ToString("F2");
-                rotationZTextBox.Text = rotation[2].ToString("F2");
-
-                colorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(selectedModel.Color);
-            }
         }
 
+        /// <summary>
+        /// Event handler for when the text in the translation text boxes changes.
+        /// Updates the translation of the selected model and applies the changes.
+        /// </summary>
         private async void TranslationTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (selectedModel != null)
@@ -76,6 +71,10 @@ namespace WPFWebView2
             }
         }
 
+        /// <summary>
+        /// Event handler for when the text in the rotation text boxes changes.
+        /// Updates the rotation of the selected model and applies the changes.
+        /// </summary>
         private async void RotationTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (selectedModel != null)
@@ -85,6 +84,9 @@ namespace WPFWebView2
             }
         }
 
+        /// <summary>
+        /// Updates the transform (position and rotation) of the selected model in the Babylon.js scene.
+        /// </summary>
         private async Task UpdateModelTransformAsync()
         {
             if (selectedModel != null)
@@ -100,6 +102,10 @@ namespace WPFWebView2
             }
         }
 
+        /// <summary>
+        /// Event handler for when the selected color in the color picker changes.
+        /// Updates the color of the selected model and applies the changes.
+        /// </summary>
         private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             if (selectedModel != null && e.NewValue.HasValue)
@@ -111,6 +117,9 @@ namespace WPFWebView2
             }
         }
 
+        /// <summary>
+        /// Applies the changes to the selected model by updating its transform and color.
+        /// </summary>
         private async void ApplyChangesAsync()
         {
             if (selectedModel != null)
@@ -119,31 +128,16 @@ namespace WPFWebView2
             }
         }
 
-        private async void ApplyChangesButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (selectedModel != null)
-            {
-                await UpdateModelTransformAsync();
-            }
-        }
-
-        private float[] ParseVector3(string vector)
-        {
-            try
-            {
-                return Array.ConvertAll(vector.Split(','), float.Parse);
-            }
-            catch
-            {
-                return new float[] { 0f, 0f, 0f }; // Default to (0,0,0) on parsing error
-            }
-        }
-
+        /// <summary>
+        /// Ensures that the given vector string is valid and returns it.
+        /// If the vector string is invalid, returns the default value.
+        /// </summary>
         private string EnsureValidVector3(string vector, string defaultValue)
         {
             try
             {
                 var components = vector.Split(',');
+
                 if (components.Length == 3)
                 {
                     float.Parse(components[0]);
@@ -156,8 +150,10 @@ namespace WPFWebView2
             {
                 // Ignore parsing errors and return default value
             }
+
             return defaultValue;
         }
     }
 }
+
 
